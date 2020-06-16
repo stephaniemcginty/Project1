@@ -54,7 +54,7 @@ router.post('/AddRun', function(req, res) {
 // delete run
 router.delete('/DeleteRun/', (req, res) => {
   // need to remove object from run array
-
+  //const delDate = req.params.date;
   delete ServerRuns[0]
   let formatRunsForComparisonArray = [];
   for(var i = 0; i < ServerRuns.length; i++) // find the match

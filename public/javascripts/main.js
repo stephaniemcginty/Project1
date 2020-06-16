@@ -41,7 +41,7 @@ document.getElementByID("deleteButton").addEventListener('click', function(){
     // ajax to hit delete run route
     $.ajax({
         type: "DELETE",
-            url: "/DeleteNote/" +which,
+            url: "/DeleteRun/" + date,
             success: function(result){
                 console.log(result);
                 document.location.href = "index.html#View";  // go to this page to show item was deleted
