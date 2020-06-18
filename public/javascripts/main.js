@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
        document.getElementById("time").value,
        document.getElementById("miles").value,
        document.getElementById("notes").value ) ;
+    console.log("about to hit ajax for addrun");
 
     $.ajax({
         url : "/AddRun",
@@ -32,16 +33,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
  });
 
-document.getElementByID("deleteButton").addEventListener('click', function(){
+document.getElementById("deleteButton").addEventListener('click', function(){
     let which = document.getElementById("ViewRuns").value;
-    
+    let notes = "deleteme";
     // call function to get all check boxes 
-    var checkedBoxes = getCheckedBoxes("mycheckboxes");
+    // var checkedBoxes = getCheckedBoxes("mycheckboxes");
 
     // ajax to hit delete run route
+    console.log("about to hit ajax for delete")
     $.ajax({
         type: "DELETE",
-            url: "/DeleteRun/" + date,
+            url: "/DeleteRun/" + notes,
             success: function(result){
                 console.log(result);
                 document.location.href = "index.html#View";  // go to this page to show item was deleted
@@ -109,7 +111,7 @@ function Run(pDate, pTime, pMiles, pNotes) {
         whichElement.appendChild(checkbox);
 
         //checkbox.innerHTML = "<input type ='checkbox'>" + item.date
-        checkbox.innerHTML = "<input type='checkbox' name='delete' id='deleteRun" + index + "'> <label for='deleteRun" + index + "'>" + item.date + ", " + item.time + ", " + item.miles + " miles, " + item.notes + "</label>"
+        checkbox.innerHTML = "<input type='checkbox' name='delete' id='"+ item.notes +"'> <label for='" + item.notes + "'>" + item.date + ", " + item.time + ", " + item.miles + " miles, " + item.notes + "</label>"
    
     
     }); // end of adding check boxes

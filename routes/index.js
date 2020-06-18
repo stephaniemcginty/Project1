@@ -52,21 +52,37 @@ router.post('/AddRun', function(req, res) {
 });
 
 // delete run
-router.delete('/DeleteRun/', (req, res) => {
+// receive id of data to delete
+// translate id into index and delete from array
+router.delete('/DeleteRun/:notes', (req, res) => {
   // need to remove object from run array
   //const delDate = req.params.date;
-  delete ServerRuns[0]
-  let formatRunsForComparisonArray = [];
+  //delete ServerRuns[0]
+  console.log("test delete route");
+  let found = false;
+  const delNotes = req.params.notes;
+  console.log(delNotes);
+
+  //let formatRunsForComparisonArray = [];
   for(var i = 0; i < ServerRuns.length; i++) // find the match
   {
-    formatRunsForComparisonArray[i] = ServerRuns[i].date + ", " + ServerRuns[i].time + ", ";
+    //formatRunsForComparisonArray[i] = ServerRuns[i].date + ", " + ServerRuns[i].time + ", ";
 
-      if(ServerRuns[i].date === date){ // checking match by date, but we can delete by index
+      if(ServerRuns[i].notes == delNotes){ // checking match by date, but we can delete by index
+        console.log(ServerRuns[i].notes);
         ServerRuns.splice(i,1);  // remove object from array
-        fileManager.write();
+        //fileManager.write();
           found = true;
           break;
       }
+  }
+  if (!found) {
+    console.log("not found");
+    return res.status(500).json({
+      status: "error"
+    });
+  } else {
+  res.send('Run ' + delNotes + ' deleted!');
   }
 });
 
