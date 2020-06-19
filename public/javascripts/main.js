@@ -82,12 +82,15 @@ function removeElm(elm){
 
 
 // our constructor
+
 function Run(pDate, pTime, pMiles, pNotes) {
     this.date= pDate;
     this.time = pTime;
     this.miles = pMiles;
     this.notes = pNotes;
 }
+
+
 
 // this function is shared by Home and Delete page to add li's to which ever ul is passed in
  function UpdateDisplay(whichElement) {
@@ -117,6 +120,18 @@ function Run(pDate, pTime, pMiles, pNotes) {
     }); // end of adding check boxes
 });  // end of call $.get
 
+function compareMilesRan(a, b){
+    // a should come before b in the sorted order
+    if(a.miles > b.miles){
+            return -1;
+    // a should come after b in the sorted order
+    }else if(a.miles < b.miles){
+            return 1;
+    // and and b are the same
+    }else{
+            return 0;
+    }
+}
 
     // PR page code
     let personalRecords = document.getElementById("personal_records");
@@ -126,20 +141,28 @@ function Run(pDate, pTime, pMiles, pNotes) {
 
         $.get("/getAllRuns", function(data, status){  // AJAX get
             Runs = data;  // put the returned server json data into our local array
-    
+            RunsByMileage = data;
+
+            for(i = 0; i < RunsByMileage.length; i++){
+                RunsByMileage[i].miles = parseInt(RunsByMileage[i].miles);
+            }
+
+
+            RunsByMileage.sort(compareMilesRan); // sort by miles ran
+            console.log(RunsByMileage)
+            console.log(RunsByMileage[0].miles)
+
             whichElement = document.getElementById("personal_records");
-            console.log(Runs);
 
             whichElement.innerHTML = "";
            
-            Runs.forEach(function(item, index) {   // build one li for each item in array
-                //var li = document.createElement('li');
-                //whichElement.appendChild(li);
+            RunsByMileage.forEach(function(item, index) {   // build one li for each item in array
         
                 var li = document.createElement('li');
                 whichElement.appendChild(li);
-        
-                li.innerHTML = "<input type='li' name='delete' id='deleteRun" + index + "'> <label for='deleteRun" + index + "'>" + item.date + ", " + item.time + ", " + item.miles + " miles, " + item.notes + "</label>"
+                
+                //li.innerHTML = 
+                li.innerHTML = item.date + ", " + item.time + ", " + item.miles + " miles, " + item.notes;
 
             });
 

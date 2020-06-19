@@ -82,7 +82,7 @@ router.delete('/DeleteRun/:notes', (req, res) => {
       status: "error"
     });
   } else {
-  res.send('Run ' + delNotes + ' deleted!');
+  res.send('Run deleted!');
   }
 });
 
