@@ -37,8 +37,8 @@ document.getElementById("deleteButton").addEventListener('click', function(){
     let which = document.getElementById("ViewRuns").value;
     let notes = "deleteme";
     // call function to get all check boxes 
-    // var checkedBoxes = getCheckedBoxes("mycheckboxes");
-
+    var checkedBoxes = getCheckedBoxes("delete"); // get checkedBoxes
+    console.log(checkedBoxes);
     // ajax to hit delete run route
     console.log("about to hit ajax for delete")
     $.ajax({
