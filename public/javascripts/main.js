@@ -1,5 +1,5 @@
 // define an array to hold our data.  Later this should be stored on the sever
-Runs = [];
+var Runs = [];
 
 // Now comes the code that must wait to run until the document is fully loaded
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 document.getElementById("deleteButton").addEventListener('click', function(){
     let which = document.getElementById("ViewRuns").value;
-    let notes = "deleteme";
+    let ID = 1;
     // call function to get all check boxes 
     var checkedBoxes = getCheckedBoxes("delete"); // get checkedBoxes
     console.log(checkedBoxes);
@@ -43,7 +43,7 @@ document.getElementById("deleteButton").addEventListener('click', function(){
     console.log("about to hit ajax for delete")
     $.ajax({
         type: "DELETE",
-            url: "/DeleteRun/" + notes,
+            url: "/DeleteRun/" + ID ,
             success: function(result){
                 console.log(result);
                 document.location.href = "index.html#View";  // go to this page to show item was deleted
@@ -84,6 +84,7 @@ function removeElm(elm){
 // our constructor
 
 function Run(pDate, pTime, pMiles, pNotes) {
+    this.ID = 1;
     this.date= pDate;
     this.time = pTime;
     this.miles = pMiles;
