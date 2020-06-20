@@ -7,6 +7,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let checkboxList = document.getElementById("ViewRuns");
     UpdateDisplay(checkboxList);
 
+    let textarea = document.querySelector('#userAddsRun');
+    let input = document.querySelector('#clear');
+
+    input.addEventListener('click', function () {
+        textarea.value = '';
+    }, false);
+
  // add a button event for adding new notes on Add page
  document.getElementById("add_run").addEventListener("click", function () {
     // use constructor, build new object and put it in array
@@ -35,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 document.getElementById("deleteButton").addEventListener('click', function(){
     let which = document.getElementById("ViewRuns").value;
-    let notes = "deleteme";
+    let ID = 1;
     // call function to get all check boxes 
     var checkedBoxes = getCheckedBoxes("delete"); // get checkedBoxes
     console.log(checkedBoxes);
@@ -43,7 +50,7 @@ document.getElementById("deleteButton").addEventListener('click', function(){
     console.log("about to hit ajax for delete")
     $.ajax({
         type: "DELETE",
-            url: "/DeleteRun/" + notes,
+            url: "/DeleteRun/" + ID,
             success: function(result){
                 console.log(result);
                 document.location.href = "index.html#View";  // go to this page to show item was deleted
@@ -84,6 +91,7 @@ function removeElm(elm){
 // our constructor
 
 function Run(pDate, pTime, pMiles, pNotes) {
+    this.ID = 1;
     this.date= pDate;
     this.time = pTime;
     this.miles = pMiles;
@@ -114,7 +122,7 @@ function Run(pDate, pTime, pMiles, pNotes) {
         whichElement.appendChild(checkbox);
 
         //checkbox.innerHTML = "<input type ='checkbox'>" + item.date
-        checkbox.innerHTML = "<input type='checkbox' name='delete' id='"+ item.notes +"'> <label for='" + item.notes + "'>" + item.date + ", " + item.time + ", " + item.miles + " miles, " + item.notes + "</label>"
+        checkbox.innerHTML = "<input type='checkbox' name='delete' id='"+ item.notes +"'> <label for='" + item.notes + "'>" + item.date + ", " + item.time + " minutes, " + item.miles + " miles, " + item.notes + "</label>"
    
     
     }); // end of adding check boxes
@@ -158,11 +166,11 @@ function compareMilesRan(a, b){
            
             RunsByMileage.forEach(function(item, index) {   // build one li for each item in array
         
-                var li = document.createElement('li');
+                var li = document.createElement("li");
                 whichElement.appendChild(li);
                 
                 //li.innerHTML = 
-                li.innerHTML = item.date + ", " + item.time + ", " + item.miles + " miles, " + item.notes;
+                li.innerHTML = item.date + ", " + item.time + " minutes, " + item.miles + " miles, " + item.notes;
 
             });
 

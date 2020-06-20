@@ -17,9 +17,11 @@ fileManager = {
 }
 
 ServerRuns = [];
+var lastID = 1;
 
 // our constructor
 function Run(pDate, pTime, pMiles, pNotes) {
+  this.ID = lastID++;
   this.date = pDate;
   this.time = pTime;
   this.miles = pMiles;
@@ -46,6 +48,7 @@ router.get('/getAllRuns', function(req, res) {
 /* Add one new run */
 router.post('/AddRun', function(req, res) {
   const newRun = req.body;
+ // newRun.ID = lastID++;
   ServerRuns.push(newRun);
   fileManager.write();
   res.status(200).json(newRun);
@@ -54,22 +57,22 @@ router.post('/AddRun', function(req, res) {
 // delete run
 // receive id of data to delete
 // translate id into index and delete from array
-router.delete('/DeleteRun/:notes', (req, res) => {
+router.delete('/DeleteRun/:ID', (req, res) => {
   // need to remove object from run array
   //const delDate = req.params.date;
   //delete ServerRuns[0]
   console.log("test delete route");
   let found = false;
-  const delNotes = req.params.notes;
-  console.log(delNotes);
+  const delID = req.params.ID;
+  console.log(ID);
 
   //let formatRunsForComparisonArray = [];
   for(var i = 0; i < ServerRuns.length; i++) // find the match
   {
     //formatRunsForComparisonArray[i] = ServerRuns[i].date + ", " + ServerRuns[i].time + ", ";
 
-      if(ServerRuns[i].notes == delNotes){ // checking match by date, but we can delete by index
-        console.log(ServerRuns[i].notes);
+      if(ServerRuns[i].ID == delID){ // checking match by date, but we can delete by index
+        console.log(ServerRuns[i].ID);
         ServerRuns.splice(i,1);  // remove object from array
         //fileManager.write();
           found = true;

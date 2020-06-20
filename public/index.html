@@ -65,11 +65,11 @@
    <div data-role="content" data-theme='a'>
      <h2>Add a New Run</h2>
      <div id="userAddsRun">
-        User enters...<br><br>
+        Enter your run!<br><br>
         <form action="">
          <label for="date">Date of run:</label>
          <input type="text" id="date" name="date"><br><br>
-         <label for="time">Time spent running:</label>
+         <label for="time">Total time spent running (in minutes):</label>
          <input type="text" id="time" name="time"><br><br>
          <label for="miles">Miles completed:</label>
          <input type="text" id="miles" name="miles"><br><br>
@@ -105,10 +105,7 @@
                <h2>View My Runs</h2>
    
                <div>
-               Runs listed in descending chronological order with checkbox next to each giving option to select run and delete
-               (or delete button next to each entry)
-               <br><br>
-               Example:
+               These are your completed runs:
                <form>
                <div id="ViewRuns">
 
@@ -141,14 +138,12 @@
 
    <div data-role="content" data-theme='a'>
       <h2>My Personal Records 🏆</h2>
-      <div id = "personal_records">
-         <strong>Time:</strong>
-         <br>
-         Top 3 times are listed here
-         <br><br>
-         <strong>Distance:</strong>
-         <br>
-         Top 3 highest mile runs are listed here
+      <div>
+         <strong>See your personal mileage records!</strong><br><br>
+         <strong>Your longest distance runs are listed below:</strong>
+        <ol id = "personal_records">
+
+        </ol>
       </div>
    </div>
    <div data-role="footer" data-theme='a'>
