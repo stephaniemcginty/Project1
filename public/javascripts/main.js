@@ -35,10 +35,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 document.getElementById("deleteButton").addEventListener('click', function(){
     let which = document.getElementById("ViewRuns").value;
-    let ID = 1;
+    //let ID = 1;
     // call function to get all check boxes 
-    var checkedBoxes = getCheckedBoxes("delete"); // get checkedBoxes
-    console.log(checkedBoxes);
+    let checkedBoxID = getCheckedBoxes("delete"); // get checkedBoxes
+    let ID = parseInt(checkedBoxID);
+
+    console.log(checkedBoxID);
     // ajax to hit delete run route
     console.log("about to hit ajax for delete")
     $.ajax({
@@ -64,16 +66,23 @@ document.getElementById("deleteButton").addEventListener('click', function(){
 // Pass the checkbox name to the function
 function getCheckedBoxes(chkboxName) {
     var checkboxes = document.getElementsByName(chkboxName);
-    var checkboxesChecked = [];
+    //var checkboxesChecked = [];
+    var checkBoxToDelete;
     // loop over them all
     for (var i=0; i<checkboxes.length; i++) {
        // And stick the checked ones onto an array...
        if (checkboxes[i].checked) {
-          checkboxesChecked.push(checkboxes[i]);
+          console.log(checkboxes[i]);
+          console.log(checkboxes[i].id)
+          
+          // grab id of checkbox to delete
+          checkBoxToDelete = checkboxes[i].id;
+          //checkboxesChecked.push(checkboxes[i]);
        }
     }
     // Return the array if it is non-empty, or null
-    return checkboxesChecked.length > 0 ? checkboxesChecked : null;
+    //return checkboxesChecked.length > 0 ? checkboxesChecked : null;
+    return checkBoxToDelete; // return checkbox id for delete on the server
   }
   
 function removeElm(elm){
@@ -115,7 +124,7 @@ function Run(pDate, pTime, pMiles, pNotes) {
         whichElement.appendChild(checkbox);
 
         //checkbox.innerHTML = "<input type ='checkbox'>" + item.date
-        checkbox.innerHTML = "<input type='checkbox' name='delete' id='"+ item.notes +"'> <label for='" + item.notes + "'>" + item.date + ", " + item.time + ", " + item.miles + " miles, " + item.notes + "</label>"
+        checkbox.innerHTML = "<input type='checkbox' name='delete' id='"+ item.ID +"'> <label for='" + item.ID + "'>" + item.date + ", " + item.time + ", " + item.miles + " miles, " + item.notes + "</label>"
    
     
     }); // end of adding check boxes
@@ -151,7 +160,7 @@ function compareMilesRan(a, b){
 
             RunsByMileage.sort(compareMilesRan); // sort by miles ran
             console.log(RunsByMileage)
-            console.log(RunsByMileage[0].miles)
+            //console.log(RunsByMileage[0].miles)
 
             whichElement = document.getElementById("personal_records");
 
